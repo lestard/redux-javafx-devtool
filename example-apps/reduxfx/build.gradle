@@ -5,6 +5,7 @@ repositories {
 }
 
 dependencies {
+    compile project(":redux-javafx-devtool")
     compile project(":example-apps:todolist-common")
     compile 'com.netopyr.reduxfx:reduxfx-view:0.4.0-SNAPSHOT'
     compile 'com.netopyr.reduxfx:reduxfx-store:0.4.0-SNAPSHOT'
