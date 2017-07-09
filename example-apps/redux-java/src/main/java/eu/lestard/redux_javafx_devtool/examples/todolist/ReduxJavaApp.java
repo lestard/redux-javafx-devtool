@@ -1,6 +1,7 @@
 package eu.lestard.redux_javafx_devtool.examples.todolist;
 
 import com.netopyr.reduxfx.vscenegraph.ReduxFXView;
+import eu.lestard.redux_javafx_devtool.ReduxFXDevTool;
 import eu.lestard.redux_javafx_devtool.examples.todolist.actions.Actions;
 import eu.lestard.redux_javafx_devtool.examples.todolist.store.AppState;
 import eu.lestard.redux_javafx_devtool.examples.todolist.updater.Reducer;
@@ -23,7 +24,10 @@ public class ReduxJavaApp extends Application {
 
 		final AppState initialState = AppState.create();
 
-		final Store<AppState> store = com.glung.redux.Store.createStore(Reducer::reduce, initialState, null);
+		final ReduxFXDevTool<AppState> devTool = ReduxFXDevTool.create();
+
+		final Store<AppState> store = com.glung.redux.Store.createStore(Reducer::reduce, initialState, devTool.instrumentJvmRedux());
+
 
 		final Flowable<AppState> statePublisher = Flowable.create(
 			emitter -> store.subscribe(() -> emitter.onNext(store.getState())),
@@ -39,6 +43,6 @@ public class ReduxJavaApp extends Application {
 
 		store.dispatch(Actions.initAction());
 
-
+		devTool.openDevToolWindow(primaryStage);
 	}
 }

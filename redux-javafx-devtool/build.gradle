@@ -1,1 +1,18 @@
 apply plugin: "java"
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    compile 'com.github.glung:redux-java:1.1'
+    compile 'org.reactfx:reactfx:2.0-M5'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.vavr:vavr:0.9.0'
+
+    compile 'com.netopyr.reduxfx:reduxfx-store:0.4.0-SNAPSHOT'
+    compile 'com.netopyr.reduxfx:reduxfx-view:0.4.0-SNAPSHOT'
+}
