@@ -1,4 +1,9 @@
 rootProject.name = 'redux-javafx-devtool-root'
 
+include "example-apps:todolist-common"
+
+include "example-apps:redux-java"
+include "example-apps:reduxfx"
+
 
 include "redux-javafx-devtool"

@@ -1,0 +1,13 @@
+apply plugin: "java"
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    compile project(":example-apps:todolist-common")
+    compile 'com.github.glung:redux-java:1.1'
+}
