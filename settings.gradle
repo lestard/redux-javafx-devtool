@@ -1,0 +1,4 @@
+rootProject.name = 'redux-javafx-devtool-root'
+
+
+include "redux-javafx-devtool"
