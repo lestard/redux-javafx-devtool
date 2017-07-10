@@ -15,4 +15,7 @@ dependencies {
 
     compile 'com.netopyr.reduxfx:reduxfx-store:0.4.0-SNAPSHOT'
     compile 'com.netopyr.reduxfx:reduxfx-view:0.4.0-SNAPSHOT'
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:3.8.0"
 }
