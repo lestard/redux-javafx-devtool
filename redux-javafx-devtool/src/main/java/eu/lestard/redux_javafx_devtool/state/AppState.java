@@ -1,39 +1,40 @@
 package eu.lestard.redux_javafx_devtool.state;
 
 import eu.lestard.redux_javafx_devtool.updater.stateparser.StateParser;
-import io.vavr.collection.Array;
-import io.vavr.collection.Seq;
+import io.vavr.collection.LinkedHashMap;
+import io.vavr.control.Option;
 
 public class AppState {
 
-	private final Seq<ClientAction> clientActions;
-	private final StateNode clientState;
+	private final LinkedHashMap<ClientAction, StateNode> stateHistory;
+	private final Option<ClientAction> selectedAction;
 
 	private final StateParser stateParser = StateParser.create();
 
 	public static AppState create() {
-		return new AppState(Array.empty(), StateNode.create("root", null));
+		return new AppState(LinkedHashMap.empty(), Option.none());
 	}
 
-	private AppState(Seq<ClientAction> clientActions, StateNode clientState) {
-		this.clientActions = clientActions;
-		this.clientState = clientState;
+	private AppState(LinkedHashMap<ClientAction, StateNode> stateHistory,
+		Option<ClientAction> selectedAction) {
+		this.stateHistory = stateHistory;
+		this.selectedAction = selectedAction;
 	}
 
-	public AppState withNewAction(ClientAction userAction) {
-		return new AppState(clientActions.append(userAction), clientState);
+	public AppState withNewAction(ClientAction clientAction, Object clientState) {
+		return new AppState(this.stateHistory.put(clientAction, stateParser.parse("root", clientState)),
+			selectedAction);
 	}
 
-	public Seq<ClientAction> getClientActions() {
-		return clientActions;
+	public AppState withSelectedAction(ClientAction action) {
+		return new AppState(this.stateHistory, Option.of(action));
 	}
 
-	public AppState withClientState(Object newState) {
-		return new AppState(clientActions, stateParser.parse("root", newState));
+	public LinkedHashMap<ClientAction, StateNode> getStateHistory() {
+		return this.stateHistory;
 	}
 
-	public StateNode getClientState() {
-		return clientState;
+	public Option<ClientAction> getSelectedAction() {
+		return selectedAction;
 	}
-
 }

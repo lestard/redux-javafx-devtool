@@ -3,7 +3,9 @@ package eu.lestard.redux_javafx_devtool.view.stateview;
 import com.netopyr.reduxfx.vscenegraph.builders.RegionBuilder;
 import com.netopyr.reduxfx.vscenegraph.builders.TreeItemBuilder;
 import eu.lestard.redux_javafx_devtool.state.AppState;
+import eu.lestard.redux_javafx_devtool.state.Selectors;
 import eu.lestard.redux_javafx_devtool.state.StateNode;
+import io.vavr.control.Option;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javaslang.collection.Array;
@@ -19,24 +21,26 @@ public class StateView {
 	}
 
 	public static RegionBuilder view(AppState state) {
-		final Object clientState = state.getClientState();
+
+		final Option<StateNode> clientStateOptional = Selectors.getClientState(state);
 
 		return VBox()
 			.spacing(2)
 			.prefHeight(Region.USE_COMPUTED_SIZE)
 			.prefWidth(Region.USE_COMPUTED_SIZE)
 			.children(
-				clientState == null
-					? Label().text("no state")
+
+				clientStateOptional.isEmpty()
+					? Label().text("no State")
 					: TreeView(StateNode.class)
-						.vgrow(Priority.ALWAYS)
-						.prefHeight(Region.USE_COMPUTED_SIZE)
-						.prefWidth(Region.USE_COMPUTED_SIZE)
-						.cellFactory(stateNode -> Label().text(stateNode.getValueStringRep()))
-						.showRoot(true)
-						.root(
-							createTreeItem(state.getClientState())
-						)
+					.vgrow(Priority.ALWAYS)
+					.prefHeight(Region.USE_COMPUTED_SIZE)
+					.prefWidth(Region.USE_COMPUTED_SIZE)
+					.cellFactory(stateNode -> Label().text(stateNode.getValueStringRep()))
+					.showRoot(true)
+					.root(
+						createTreeItem(clientStateOptional.get())
+					)
 			);
 	}
 

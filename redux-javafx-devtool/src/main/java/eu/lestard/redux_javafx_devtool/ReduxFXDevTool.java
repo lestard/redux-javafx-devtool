@@ -8,11 +8,9 @@ import eu.lestard.redux_javafx_devtool.actions.Actions;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.updater.Updater;
 import eu.lestard.redux_javafx_devtool.view.DevToolWindow;
-import io.reactivex.Flowable;
 import io.reactivex.processors.PublishProcessor;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import redux.api.Reducer;
 
@@ -46,10 +44,10 @@ public class ReduxFXDevTool<STATE> {
 
 	public void instrumentReduxfxStore(ReduxFXStore<STATE> clientStore) {
 
-		final Publisher<STATE> clientStatePublisher = clientStore.getStatePublisher();
-
-		Flowable.fromPublisher(clientStatePublisher)
-			.subscribe(state -> devToolActions.offer(Actions.clientStateUpdated(state)));
+//		final Publisher<STATE> clientStatePublisher = clientStore.getStatePublisher();
+//
+//		Flowable.fromPublisher(clientStatePublisher)
+//			.subscribe(state -> devToolActions.offer(Actions.clientStateUpdated(state)));
 	}
 
 	public Store.Enhancer instrumentJvmRedux() {
@@ -61,11 +59,7 @@ public class ReduxFXDevTool<STATE> {
 				return new redux.api.Store<S>() {
 					@Override
 					public S getState() {
-						final S s = store.getState();
-
-						devToolActions.offer(Actions.clientStateUpdated(s));
-
-						return s;
+						return store.getState();
 					}
 
 					@Override
@@ -80,9 +74,10 @@ public class ReduxFXDevTool<STATE> {
 
 					@Override
 					public Object dispatch(Object action) {
-						devToolActions.offer(Actions.clientActionDispatched(action));
-
-						return store.dispatch(action);
+						final Object result = store.dispatch(action);
+						final S newState = store.getState();
+						devToolActions.offer(Actions.clientActionDispatched(action, newState));
+						return result;
 					}
 				};
 			}

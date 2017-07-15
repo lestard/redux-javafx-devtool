@@ -1,7 +1,7 @@
 package eu.lestard.redux_javafx_devtool.updater;
 
 import eu.lestard.redux_javafx_devtool.actions.ClientActionDispatchedAction;
-import eu.lestard.redux_javafx_devtool.actions.ClientStateUpdatedAction;
+import eu.lestard.redux_javafx_devtool.actions.ClientActionSelectedAction;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.state.ClientAction;
 
@@ -17,15 +17,19 @@ public class Updater {
 	public static AppState update(AppState state, Object action) {
 		return Match(action).of(
 			Case($(instanceOf(ClientActionDispatchedAction.class)),
-				clientActionDispatchedAction ->
-					state.withNewAction(
-						ClientAction.create(
-							clientActionDispatchedAction.getClientAction()))
+				clientActionDispatchedAction -> {
+					final Object clientAction = clientActionDispatchedAction.getClientAction();
+					final Object clientState = clientActionDispatchedAction.getClientState();
+
+					return state.withNewAction(
+						ClientAction.create(clientAction),
+						clientState
+					);
+				}
 			),
 
-			Case($(instanceOf(ClientStateUpdatedAction.class)),
-				clientStateUpdatedAction ->
-					state.withClientState(clientStateUpdatedAction.getClientState())
+			Case($(instanceOf(ClientActionSelectedAction.class)),
+				clientActionSelectedAction -> state.withSelectedAction(clientActionSelectedAction.getClientAction())
 			),
 
 			Case($(), state)

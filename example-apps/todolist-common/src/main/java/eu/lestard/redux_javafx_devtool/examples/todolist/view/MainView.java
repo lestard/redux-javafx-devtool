@@ -5,7 +5,6 @@ import eu.lestard.redux_javafx_devtool.examples.todolist.actions.Actions;
 import eu.lestard.redux_javafx_devtool.examples.todolist.store.AppState;
 import eu.lestard.redux_javafx_devtool.examples.todolist.store.Item;
 import eu.lestard.redux_javafx_devtool.examples.todolist.store.Selectors;
-import javaslang.collection.Array;
 
 import static com.netopyr.reduxfx.vscenegraph.VScenegraphFactory.Button;
 import static com.netopyr.reduxfx.vscenegraph.VScenegraphFactory.HBox;
@@ -50,7 +49,7 @@ public class MainView {
 									.cellFactory(item ->
 										Label().text(item.getText())
 									)
-									.items(Array.ofAll(appState.getItems()))
+									.items(appState.getItems())
 							)
 					)
 			);
