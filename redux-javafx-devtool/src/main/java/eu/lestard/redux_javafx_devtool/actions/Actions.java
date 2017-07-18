@@ -11,4 +11,8 @@ public class Actions {
 	public static ClientActionSelectedAction selectClientAction(ClientAction action) {
 		return new ClientActionSelectedAction(action);
 	}
+
+	public static JumpToClientActionAction jumpToClientAction(ClientAction action) {
+		return new JumpToClientActionAction(action);
+	}
 }

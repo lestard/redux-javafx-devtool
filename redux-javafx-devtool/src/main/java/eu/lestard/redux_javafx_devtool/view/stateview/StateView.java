@@ -5,10 +5,10 @@ import com.netopyr.reduxfx.vscenegraph.builders.TreeItemBuilder;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.state.Selectors;
 import eu.lestard.redux_javafx_devtool.state.StateNode;
+import io.vavr.collection.Array;
 import io.vavr.control.Option;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javaslang.collection.Array;
 
 import static com.netopyr.reduxfx.vscenegraph.VScenegraphFactory.Label;
 import static com.netopyr.reduxfx.vscenegraph.VScenegraphFactory.TreeItem;

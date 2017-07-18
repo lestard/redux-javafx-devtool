@@ -21,7 +21,6 @@ public class ActionsHistoryView {
 
 		final Seq<ClientAction> clientActions = Selectors.getClientActions(state);
 
-
 		return VBox()
 			.prefHeight(Region.USE_COMPUTED_SIZE)
 			.prefWidth(Region.USE_COMPUTED_SIZE)
