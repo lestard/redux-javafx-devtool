@@ -22,7 +22,7 @@ public class StateView {
 
 	public static RegionBuilder view(AppState state) {
 
-		final Option<StateNode> clientStateOptional = Selectors.getClientState(state);
+		final Option<StateNode> clientStateOptional = Selectors.getClientStateNode(state);
 
 		return VBox()
 			.spacing(2)

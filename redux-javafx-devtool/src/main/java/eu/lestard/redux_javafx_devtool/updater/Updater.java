@@ -69,7 +69,6 @@ public class Updater {
 						});
 
 					return state
-						.withSelectedAction(targetAction)
 						.withStateHistory(historyWithDeactivatedActions);
 				}
 			),

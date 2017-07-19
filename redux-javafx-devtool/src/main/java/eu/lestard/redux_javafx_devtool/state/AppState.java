@@ -7,7 +7,19 @@ import io.vavr.control.Option;
 
 public class AppState {
 
+	/**
+	 * A list of action-state pairs in the history of the clients application.
+	 * The last entry in this list which has the {@link ClientAction#isActive()} flag
+	 * set to <code>true</code> is considered as the "current" point in time in the time-traveler.
+	 */
 	private final Seq<StateHistoryEntry> stateHistory;
+
+	/**
+	 * Selected action represents the action that the user has selected in the action-list.
+	 * This is used to view the action in a details view.
+	 * Notice: This has nothing to do with time-traveling.
+	 * It is <strong>not</strong> the current action in the time-traveler.
+	 */
 	private final Option<ClientAction> selectedAction;
 
 	private final StateParser stateParser = StateParser.create();

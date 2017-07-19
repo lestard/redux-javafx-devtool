@@ -5,18 +5,21 @@ import io.vavr.control.Option;
 
 public class Selectors {
 
-	public static Option<StateNode> getClientState(AppState appState) {
-		final Option<ClientAction> selectedAction = appState.getSelectedAction();
+	/**
+	 * Returns the client's state at the current time-travel-position parsed as {@link StateNode}
+	 */
+	public static Option<StateNode> getClientStateNode(AppState appState) {
+		return appState.getStateHistory()
+			.filter(entry -> entry.getAction().isActive())
+			.lastOption()
+			.map(StateHistoryEntry::getState);
+	}
 
-		if(selectedAction.isEmpty()) {
-			return appState.getStateHistory().lastOption().map(StateHistoryEntry::getState);
-		} else {
-			final ClientAction action = selectedAction.get();
-
-			return appState.getStateHistory()
-				.find(historyEntry -> historyEntry.getAction().getId().equals(action.getId()))
-				.map(StateHistoryEntry::getState);
-		}
+	/**
+	 * Returns the root object of the client's state.
+	 */
+	public static Object getClientStateObject(AppState appState) {
+		return getClientStateNode(appState).map(StateNode::getValue).getOrNull();
 	}
 
 	public static Seq<ClientAction> getClientActions(AppState state) {
