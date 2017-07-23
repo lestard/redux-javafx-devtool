@@ -26,4 +26,25 @@ public class Selectors {
 		return state.getStateHistory().map(StateHistoryEntry::getAction);
 	}
 
+	/**
+	 * If a specific client action is selected ({@link AppState#getSelectedAction()}),
+	 * this action is returned.
+	 * Otherwise the action at the current time-travel-position is returned.
+	 * By default this is the last action.
+	 *
+	 * If no action was dispatched yet this selector returns {@link Option#none()}.
+	 */
+	public static Option<ClientAction> getSelectedAction(AppState state) {
+		return state
+			.getSelectedAction()
+			.orElse(
+				state
+					.getStateHistory()
+					.filter(entry ->
+						entry.getAction().isActive())
+					.lastOption()
+					.map(StateHistoryEntry::getAction)
+			);
+	}
+
 }

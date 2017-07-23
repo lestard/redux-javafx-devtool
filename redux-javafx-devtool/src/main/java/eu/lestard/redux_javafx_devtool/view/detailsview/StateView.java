@@ -1,4 +1,4 @@
-package eu.lestard.redux_javafx_devtool.view.stateview;
+package eu.lestard.redux_javafx_devtool.view.detailsview;
 
 import com.netopyr.reduxfx.vscenegraph.builders.RegionBuilder;
 import com.netopyr.reduxfx.vscenegraph.builders.TreeItemBuilder;

@@ -3,7 +3,7 @@ package eu.lestard.redux_javafx_devtool.view;
 import com.netopyr.reduxfx.vscenegraph.VNode;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.view.actionsview.ActionsHistoryView;
-import eu.lestard.redux_javafx_devtool.view.stateview.StateView;
+import eu.lestard.redux_javafx_devtool.view.detailsview.DetailsView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
@@ -33,7 +33,7 @@ public class DevToolWindow {
 									.children(
 										ActionsHistoryView.view(state)
 											.hgrow(Priority.ALWAYS),
-										StateView.view(state)
+										DetailsView.view(state)
 											.hgrow(Priority.ALWAYS)
 									)
 							)
