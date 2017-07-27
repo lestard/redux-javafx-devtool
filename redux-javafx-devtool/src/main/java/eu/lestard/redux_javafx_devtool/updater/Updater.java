@@ -2,7 +2,9 @@ package eu.lestard.redux_javafx_devtool.updater;
 
 import eu.lestard.redux_javafx_devtool.actions.ClientActionDispatchedAction;
 import eu.lestard.redux_javafx_devtool.actions.ClientActionSelectedAction;
-import eu.lestard.redux_javafx_devtool.actions.JumpToClientActionAction;
+import eu.lestard.redux_javafx_devtool.actions.TimeTravelToClientAction;
+import eu.lestard.redux_javafx_devtool.actions.TimeTravelToNextActionAction;
+import eu.lestard.redux_javafx_devtool.actions.TimeTravelToPreviousActionAction;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.state.ClientAction;
 import eu.lestard.redux_javafx_devtool.state.StateHistoryEntry;
@@ -40,10 +42,10 @@ public class Updater {
 				clientActionSelectedAction -> state.withSelectedAction(clientActionSelectedAction.getClientAction())
 			),
 
-			Case($(instanceOf(JumpToClientActionAction.class)),
-				jumpToClientActionAction -> {
+			Case($(instanceOf(TimeTravelToClientAction.class)),
+				timeTravelToClientAction -> {
 					// the action that we jump to
-					final ClientAction targetAction = jumpToClientActionAction.getClientAction();
+					final ClientAction targetAction = timeTravelToClientAction.getClientAction();
 
 					final Option<StateNode> targetStateOption = state.getStateHistory()
 						.find(historyEntry -> historyEntry.getAction().getId().equals(targetAction.getId()))
@@ -72,6 +74,55 @@ public class Updater {
 						.withStateHistory(historyWithDeactivatedActions);
 				}
 			),
+
+			Case($(instanceOf(TimeTravelToNextActionAction.class)),
+				timeTravelToNextActionAction -> {
+					final Option<StateHistoryEntry> currentHistoryEntryOption = state.getStateHistory()
+						.filter(entry -> entry.getAction().isActive())
+						.lastOption();
+
+					return currentHistoryEntryOption.map(currentHistoryEntry -> {
+						final int indexOfCurrent = state.getStateHistory().indexOf(currentHistoryEntry);
+
+
+						if((state.getStateHistory().size() -1) == indexOfCurrent) {
+							// if the last entry is already active, there is no 'next' action.
+							return state;
+						}
+
+						final StateHistoryEntry nextHistoryEntry = state.getStateHistory().get(indexOfCurrent + 1);
+
+						final Seq<StateHistoryEntry> newHistory = state.getStateHistory()
+							.replace(nextHistoryEntry,
+								nextHistoryEntry.withAction(nextHistoryEntry.getAction().withActiveFlag(true)));
+						return state.withStateHistory(newHistory);
+					}).getOrElse(state);
+				}
+			),
+
+
+			Case($(instanceOf(TimeTravelToPreviousActionAction.class)),
+				timeTravelToPreviousActionAction -> {
+					final Option<StateHistoryEntry> currentHistoryEntryOption = state.getStateHistory()
+						.filter(entry -> entry.getAction().isActive())
+						.lastOption();
+
+					return currentHistoryEntryOption.map(currentHistoryEntry -> {
+						final int indexOfCurrent = state.getStateHistory().indexOf(currentHistoryEntry);
+
+						if(indexOfCurrent < 1) {
+							// if the current entry is the first we can't move to previous
+							return state;
+						}
+
+						final Seq<StateHistoryEntry> newHistory = state.getStateHistory()
+							.replace(currentHistoryEntry,
+								currentHistoryEntry.withAction(currentHistoryEntry.getAction().withActiveFlag(false)));
+						return state.withStateHistory(newHistory);
+					}).getOrElse(state);
+				}
+			),
+
 
 			Case($(), state)
 		);

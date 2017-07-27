@@ -3,7 +3,7 @@ package eu.lestard.redux_javafx_devtool.view.detailsview;
 import com.netopyr.reduxfx.vscenegraph.builders.RegionBuilder;
 import com.netopyr.reduxfx.vscenegraph.builders.TreeItemBuilder;
 import eu.lestard.redux_javafx_devtool.state.AppState;
-import eu.lestard.redux_javafx_devtool.state.Selectors;
+import eu.lestard.redux_javafx_devtool.state.selectors.Selectors;
 import eu.lestard.redux_javafx_devtool.state.StateNode;
 import io.vavr.collection.Array;
 import io.vavr.control.Option;

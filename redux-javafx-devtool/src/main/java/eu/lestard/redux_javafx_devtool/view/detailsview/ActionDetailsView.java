@@ -4,7 +4,7 @@ import com.netopyr.reduxfx.vscenegraph.VNode;
 import com.netopyr.reduxfx.vscenegraph.builders.RegionBuilder;
 import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.state.ClientAction;
-import eu.lestard.redux_javafx_devtool.state.Selectors;
+import eu.lestard.redux_javafx_devtool.state.selectors.Selectors;
 import io.vavr.control.Option;
 import javafx.scene.layout.Region;
 

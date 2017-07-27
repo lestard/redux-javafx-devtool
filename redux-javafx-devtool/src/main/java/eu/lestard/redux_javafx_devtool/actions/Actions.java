@@ -12,7 +12,15 @@ public class Actions {
 		return new ClientActionSelectedAction(action);
 	}
 
-	public static JumpToClientActionAction jumpToClientAction(ClientAction action) {
-		return new JumpToClientActionAction(action);
+	public static TimeTravelToClientAction timeTravelToClientAction(ClientAction action) {
+		return new TimeTravelToClientAction(action);
+	}
+
+	public static TimeTravelToNextActionAction timeTravelToNextAction() {
+		return new TimeTravelToNextActionAction();
+	}
+
+	public static TimeTravelToPreviousActionAction timeTravelToPreviousAction() {
+		return new TimeTravelToPreviousActionAction();
 	}
 }

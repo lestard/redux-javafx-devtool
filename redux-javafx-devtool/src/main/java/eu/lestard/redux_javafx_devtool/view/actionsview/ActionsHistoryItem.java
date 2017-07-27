@@ -34,7 +34,7 @@ public class ActionsHistoryItem {
 					.children(
 						Button()
 							.text("Jump")
-							.onAction(actionEvent -> Actions.jumpToClientAction(userAction))
+							.onAction(actionEvent -> Actions.timeTravelToClientAction(userAction))
 					)
 			);
 	}

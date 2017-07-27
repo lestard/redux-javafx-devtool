@@ -1,5 +1,9 @@
-package eu.lestard.redux_javafx_devtool.state;
+package eu.lestard.redux_javafx_devtool.state.selectors;
 
+import eu.lestard.redux_javafx_devtool.state.AppState;
+import eu.lestard.redux_javafx_devtool.state.ClientAction;
+import eu.lestard.redux_javafx_devtool.state.StateHistoryEntry;
+import eu.lestard.redux_javafx_devtool.state.StateNode;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
