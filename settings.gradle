@@ -7,3 +7,5 @@ include "example-apps:reduxfx"
 
 
 include "redux-javafx-devtool"
+include "redux-javafx-devtool-jvm-redux-connector"
+include "redux-javafx-devtool-reduxfx-connector"

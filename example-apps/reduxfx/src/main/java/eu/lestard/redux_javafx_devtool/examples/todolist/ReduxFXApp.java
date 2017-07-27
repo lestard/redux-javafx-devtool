@@ -4,6 +4,7 @@ import com.netopyr.reduxfx.store.ReduxFXStore;
 import com.netopyr.reduxfx.updater.Update;
 import com.netopyr.reduxfx.vscenegraph.ReduxFXView;
 import eu.lestard.redux_javafx_devtool.ReduxFXDevTool;
+import eu.lestard.redux_javafx_devtool.ReduxFXDevToolConnector;
 import eu.lestard.redux_javafx_devtool.examples.todolist.store.AppState;
 import eu.lestard.redux_javafx_devtool.examples.todolist.updater.Reducer;
 import eu.lestard.redux_javafx_devtool.examples.todolist.view.MainView;
@@ -25,7 +26,8 @@ public class ReduxFXApp extends Application {
 		final ReduxFXStore<AppState> store = new ReduxFXStore<>(initialState,
 			(appState, action) -> Update.of(Reducer.reduce(appState, action)));
 
-		devTool.instrumentReduxfxStore(store);
+		final ReduxFXDevToolConnector<AppState> reduxfxDevToolConnector = new ReduxFXDevToolConnector<>(store);
+		devTool.connect(reduxfxDevToolConnector);
 
 		final ReduxFXView<AppState> view = ReduxFXView.createStage(MainView::view, primaryStage);
 		view.connect(store.getStatePublisher(), store.createActionSubscriber());
