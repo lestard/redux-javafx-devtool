@@ -2,6 +2,8 @@ package eu.lestard.redux_javafx_devtool.examples.todolist.store;
 
 import io.vavr.collection.Array;
 import io.vavr.collection.Seq;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class AppState {
 
@@ -50,5 +52,14 @@ public class AppState {
 
 	public AppState withSelectedItem(Item item) {
 		return withSelectedItemId(item.getId());
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.append("textFieldValue", textFieldValue)
+				.append("items", items)
+				.append("selectedItemId", selectedItemId)
+				.toString();
 	}
 }

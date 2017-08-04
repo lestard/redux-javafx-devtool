@@ -1,7 +1,7 @@
 package eu.lestard.redux_javafx_devtool.updater.stateparser;
 
 import eu.lestard.redux_javafx_devtool.state.StateNode;
-import javaslang.collection.Array;
+import io.vavr.collection.Array;
 import org.junit.Test;
 
 import java.util.Arrays;

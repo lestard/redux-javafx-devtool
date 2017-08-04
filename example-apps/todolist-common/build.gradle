@@ -5,7 +5,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.netopyr.reduxfx:reduxfx-view:0.4.0-SNAPSHOT'
+    compile 'com.netopyr.reduxfx:reduxfx-view:0.4.1'
     compile 'io.vavr:vavr:0.9.0'
     compile 'io.javaslang:javaslang:2.0.6'
 }

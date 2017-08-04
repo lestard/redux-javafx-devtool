@@ -5,6 +5,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.netopyr.reduxfx:reduxfx-store:0.4.0'
+    compile 'com.netopyr.reduxfx:reduxfx-store:0.4.1'
     compile project(":redux-javafx-devtool")
 }
