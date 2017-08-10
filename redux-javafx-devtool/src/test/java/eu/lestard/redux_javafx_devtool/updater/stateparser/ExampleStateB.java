@@ -1,7 +1,7 @@
 package eu.lestard.redux_javafx_devtool.updater.stateparser;
 
-import javaslang.collection.Array;
-import javaslang.collection.Seq;
+import io.vavr.collection.Array;
+import io.vavr.collection.Seq;
 
 import java.util.Collections;
 import java.util.List;
