@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class StateParser {
 	private static final Array<String> GETTER_PREFIXES = Array.of("get", "is");
@@ -30,13 +31,14 @@ public class StateParser {
 			() -> Double.class,
 			() -> Float.class,
 			() -> Long.class,
-			new LeafNodeResolver() {
+			new LeafNodeResolver<String>() {
 				@Override
-				public Class getType() {
+				public Class<String> getType() {
 					return String.class;
 				}
+
 				@Override
-				public String toString(Object value) {
+				public String toString(String value) {
 					return "\"" + value + "\"";
 				}
 			},
@@ -52,7 +54,9 @@ public class StateParser {
 					return value.format(DateTimeFormatter.ISO_DATE);
 				}
 			},
-			() -> Enum.class
+			() -> Enum.class,
+			() -> Option.class,
+			() -> Optional.class
 		);
 
 		final Seq<Class> customTypes = customTypeResolvers.map(LeafNodeResolver::getType);
