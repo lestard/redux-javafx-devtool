@@ -33,15 +33,14 @@ public class Reducer {
 			),
 
 			Case($(instanceOf(RemoveSelectedItemAction.class)),
-				removeAction -> {
-					if(state.getSelectedItemId() == null) {
-						return state;
-					} else {
-						return state.withItems(
-							state.getItems().filter(item -> item.getId() != state.getSelectedItemId())
-						);
-					}
-				}
+				removeAction -> state.getSelectedItemId()
+					.map(id ->
+						state.withItems(
+							state.getItems().filter(
+								item -> item.getId() != id
+							)
+						).withSelectionRemoved()
+					).getOrElse(state)
 			),
 
 			Case($(instanceOf(SelectItemAction.class)),

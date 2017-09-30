@@ -49,6 +49,7 @@ public class MainView {
 									.cellFactory(item ->
 										Label().text(item.getText())
 									)
+									.selectedItem(Selectors.getSelectedItem(appState).getOrNull(), (oldValue, newValue) -> Actions.selectItem(newValue))
 									.items(appState.getItems())
 							)
 					)

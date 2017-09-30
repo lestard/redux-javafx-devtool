@@ -2,6 +2,7 @@ package eu.lestard.redux_javafx_devtool.examples.todolist.store;
 
 import io.vavr.collection.Array;
 import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -38,8 +39,8 @@ public class AppState {
 		return new AppState(this.textFieldValue, items, this.selectedItemId);
 	}
 
-	public Integer getSelectedItemId() {
-		return selectedItemId;
+	public Option<Integer> getSelectedItemId() {
+		return Option.of(selectedItemId);
 	}
 
 	public AppState withSelectionRemoved() {

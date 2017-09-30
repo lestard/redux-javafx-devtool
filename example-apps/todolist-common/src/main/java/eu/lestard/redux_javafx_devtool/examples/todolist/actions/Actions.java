@@ -17,11 +17,7 @@ public class Actions {
 	}
 
 	public static SelectItemAction selectItem(Item item) {
-		return new SelectItemAction(item.getId());
-	}
-
-	public static SelectItemAction unselectItem() {
-		return new SelectItemAction(null);
+		return new SelectItemAction(item != null ? item.getId() : null);
 	}
 
 	public static InitAction initAction() {

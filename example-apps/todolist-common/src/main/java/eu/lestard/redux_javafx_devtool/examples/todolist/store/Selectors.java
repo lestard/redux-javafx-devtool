@@ -1,5 +1,7 @@
 package eu.lestard.redux_javafx_devtool.examples.todolist.store;
 
+import io.vavr.control.Option;
+
 public class Selectors {
 
 	public static boolean isAddButtonEnabled(AppState appState) {
@@ -7,7 +9,11 @@ public class Selectors {
 	}
 
 	public static boolean isRemoveButtonEnabled(AppState appState) {
-		return appState.getSelectedItemId() != null;
+		return appState.getSelectedItemId().isDefined();
+	}
+
+	public static Option<Item> getSelectedItem(AppState appState) {
+		return appState.getSelectedItemId().flatMap(id -> appState.getItems().find(item -> item.getId() == id));
 	}
 
 }
