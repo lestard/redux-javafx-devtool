@@ -2,6 +2,7 @@ package eu.lestard.redux_javafx_devtool.updater;
 
 import eu.lestard.redux_javafx_devtool.actions.ClientActionDispatchedAction;
 import eu.lestard.redux_javafx_devtool.actions.ClientActionSelectedAction;
+import eu.lestard.redux_javafx_devtool.actions.SwitchIgnoreNewActionsAction;
 import eu.lestard.redux_javafx_devtool.actions.TimeTravelToClientAction;
 import eu.lestard.redux_javafx_devtool.actions.TimeTravelToNextActionAction;
 import eu.lestard.redux_javafx_devtool.actions.TimeTravelToPreviousActionAction;
@@ -31,10 +32,14 @@ public class Updater {
 					final Object clientAction = clientActionDispatchedAction.getClientAction();
 					final Object clientState = clientActionDispatchedAction.getClientState();
 
-					return state.withNewAction(
-						ClientAction.create(idGenerator.getId(), clientAction),
-						clientState
-					);
+					if(state.isIgnoreNewActions()) {
+						return state;
+					} else {
+						return state.withNewAction(
+							ClientAction.create(idGenerator.getId(), clientAction),
+							clientState
+						);
+					}
 				}
 			),
 
@@ -122,6 +127,9 @@ public class Updater {
 					}).getOrElse(state);
 				}
 			),
+
+			Case($(instanceOf(SwitchIgnoreNewActionsAction.class)),
+				switchIgnoreNewActionsAction -> state.withIgnoreNewActions(!state.isIgnoreNewActions())),
 
 
 			Case($(), state)

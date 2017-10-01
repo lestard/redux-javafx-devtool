@@ -23,4 +23,8 @@ public class Actions {
 	public static TimeTravelToPreviousActionAction timeTravelToPreviousAction() {
 		return new TimeTravelToPreviousActionAction();
 	}
+
+	public static SwitchIgnoreNewActionsAction switchIgnoreNewActions() {
+		return new SwitchIgnoreNewActionsAction();
+	}
 }

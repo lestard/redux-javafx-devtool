@@ -28,27 +28,35 @@ public class AppState {
 	 */
 	private final Option<ClientAction> selectedAction;
 
+	/**
+	 * Config option. When true, the dev tool will prevent new
+	 * actions being accepted. This can be useful for debugging
+	 * when you are in time-travel mode and don't want to receive new action.
+	 */
+	private final boolean ignoreNewActions;
+
 	private final StateParser stateParser = StateParser.create();
 
 	public static AppState create() {
-		return new AppState(Array.empty(), Option.none(), false);
+		return new AppState(Array.empty(), Option.none(), false, false);
 	}
 
 	private AppState(Seq<StateHistoryEntry> stateHistory,
-		Option<ClientAction> selectedAction, boolean playbackRunning) {
+		Option<ClientAction> selectedAction, boolean playbackRunning, boolean ignoreNewActions) {
 		this.stateHistory = stateHistory;
 		this.selectedAction = selectedAction;
 		this.playbackRunning = playbackRunning;
+		this.ignoreNewActions = ignoreNewActions;
 	}
 
 	public AppState withNewAction(ClientAction clientAction, Object clientState) {
 		final StateHistoryEntry newHistoryEntry = StateHistoryEntry.create(clientAction, stateParser.parse("root", clientState));
 		return new AppState(this.stateHistory.append(newHistoryEntry),
-			selectedAction, playbackRunning);
+			selectedAction, playbackRunning, ignoreNewActions);
 	}
 
 	public AppState withSelectedAction(ClientAction action) {
-		return new AppState(this.stateHistory, Option.of(action), playbackRunning);
+		return new AppState(this.stateHistory, Option.of(action), playbackRunning, ignoreNewActions);
 	}
 
 	public Seq<StateHistoryEntry> getStateHistory() {
@@ -56,7 +64,7 @@ public class AppState {
 	}
 
 	public AppState withStateHistory(Seq<StateHistoryEntry> history) {
-		return new AppState(history, this.selectedAction, playbackRunning);
+		return new AppState(history, this.selectedAction, playbackRunning, ignoreNewActions);
 	}
 
 	public Option<ClientAction> getSelectedAction() {
@@ -64,10 +72,18 @@ public class AppState {
 	}
 
 	public AppState withPlaybackRunning(boolean playback) {
-		return new AppState(stateHistory, selectedAction, playback);
+		return new AppState(stateHistory, selectedAction, playback, ignoreNewActions);
 	}
 
 	public boolean isPlaybackRunning() {
 		return playbackRunning;
+	}
+
+	public boolean isIgnoreNewActions() {
+		return ignoreNewActions;
+	}
+
+	public AppState withIgnoreNewActions(boolean newValue) {
+		return new AppState(stateHistory, selectedAction, playbackRunning, newValue);
 	}
 }
