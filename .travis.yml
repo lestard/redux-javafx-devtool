@@ -2,8 +2,6 @@ language: java
 jdk:
 - oraclejdk8
 
-deploy:
-  provider: script
-  script: upload_spapshots.sh
-  on:
-    branch: master
+after_success:
+ - chmod ugo+x upload_snapshots.sh
+ - ./upload_snapshots.sh
