@@ -10,6 +10,7 @@ import eu.lestard.redux_javafx_devtool.state.AppState;
 import eu.lestard.redux_javafx_devtool.state.ClientAction;
 import eu.lestard.redux_javafx_devtool.state.StateHistoryEntry;
 import eu.lestard.redux_javafx_devtool.state.StateNode;
+import eu.lestard.redux_javafx_devtool.state.selectors.Selectors;
 import eu.lestard.redux_javafx_devtool.util.IdGenerator;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
@@ -32,7 +33,12 @@ public class Updater {
 					final Object clientAction = clientActionDispatchedAction.getClientAction();
 					final Object clientState = clientActionDispatchedAction.getClientState();
 
-					if(state.isIgnoreNewActions()) {
+					/*
+						If time traveling is active at the moment (i.e. the currently selected and active
+						action is not the last action is the state history) we may not accept new client actions.
+						Of course this only applies if whe have at least a single action recorded yet.
+					 */
+					if(Selectors.isTimeTravelActive(state) && !state.getStateHistory().isEmpty()) {
 						return state;
 					} else {
 						return state.withNewAction(

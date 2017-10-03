@@ -55,5 +55,25 @@ public class Selectors {
 					.map(StateHistoryEntry::getAction)
 			);
 	}
+	
+	public static boolean isTimeTravelActive(AppState state) {
+		final Seq<StateHistoryEntry> stateHistory = state.getStateHistory();
+
+		if(stateHistory.isEmpty()) {
+			return false;
+		}
+
+
+		final Option<ClientAction> currentActiveActionOption = TimeTravelPlayerSelectors.getCurrentActiveAction(state);
+
+		if(currentActiveActionOption.isEmpty()) {
+			return false;
+		}
+
+		final ClientAction clientAction = currentActiveActionOption.get();
+		final ClientAction lastActionInHistory = stateHistory.last().getAction();
+
+		return ! clientAction.equals(lastActionInHistory);
+	}
 
 }

@@ -32,8 +32,7 @@ public class ActionsHistoryView {
 					.items(clientActions)
 					.selectedItem(state.getSelectedAction().isDefined() ? state.getSelectedAction().get() : null,
 						(oldSelection, newSelection) -> Actions.selectClientAction(newSelection))
-					.cellFactory(ActionsHistoryItem::view),
-				ActionsControlsView.view(state)
+					.cellFactory(ActionsHistoryItem::view)
 			);
 	}
 }
