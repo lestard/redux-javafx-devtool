@@ -1,6 +1,7 @@
 
 subprojects {
   apply plugin: "java"
+  apply plugin: "maven"
   group = "eu.lestard.redux-javafx-devtool"
   version = "0.1.0"
   sourceCompatibility = 1.8
