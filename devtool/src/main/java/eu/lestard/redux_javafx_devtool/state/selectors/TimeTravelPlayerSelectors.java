@@ -51,7 +51,9 @@ public class TimeTravelPlayerSelectors {
 	}
 
 	/**
-	 * Returns the action that is currently active in time-traveler.
+	 * @return the action that is currently active in time-traveler.
+	 *
+	 * @param state the app state
 	 */
 	public static Option<ClientAction> getCurrentActiveAction(AppState state) {
 		return state.getStateHistory()

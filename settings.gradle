@@ -5,7 +5,6 @@ include "example-apps:todolist-common"
 include "example-apps:redux-java"
 include "example-apps:reduxfx"
 
-
-include "redux-javafx-devtool"
-include "redux-javafx-devtool-jvm-redux-connector"
-include "redux-javafx-devtool-reduxfx-connector"
+include "devtool"
+include "connectors:jvm-redux-connector"
+include "connectors:reduxfx-connector"

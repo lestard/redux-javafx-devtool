@@ -8,8 +8,8 @@ repositories {
 }
 
 dependencies {
-    compile project(":redux-javafx-devtool")
-    compile project(":redux-javafx-devtool-jvm-redux-connector")
+    compile project(":devtool")
+    compile project(":connectors:jvm-redux-connector")
     compile project(":example-apps:todolist-common")
     compile 'com.github.glung:redux-java:1.1'
 }

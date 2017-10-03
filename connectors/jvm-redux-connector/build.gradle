@@ -9,5 +9,5 @@ repositories {
 
 dependencies {
     compile 'com.github.jvm-redux:jvm-redux-api:1.2.0'
-    compile project(":redux-javafx-devtool")
+    compile project(":devtool")
 }

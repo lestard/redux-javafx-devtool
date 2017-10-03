@@ -10,7 +10,8 @@ import io.vavr.control.Option;
 public class Selectors {
 
 	/**
-	 * Returns the client's state at the current time-travel-position parsed as {@link StateNode}
+	 * @param appState the app state
+	 * @return the client's state at the current time-travel-position parsed as {@link StateNode}
 	 */
 	public static Option<StateNode> getClientStateNode(AppState appState) {
 		return appState.getStateHistory()
@@ -20,7 +21,8 @@ public class Selectors {
 	}
 
 	/**
-	 * Returns the root object of the client's state.
+	 * @param appState the app state
+	 * @return the root object of the client's state.
 	 */
 	public static Object getClientStateObject(AppState appState) {
 		return getClientStateNode(appState).map(StateNode::getValue).getOrNull();
@@ -35,8 +37,11 @@ public class Selectors {
 	 * this action is returned.
 	 * Otherwise the action at the current time-travel-position is returned.
 	 * By default this is the last action.
-	 *
+	 * <p>
 	 * If no action was dispatched yet this selector returns {@link Option#none()}.
+	 *
+	 * @param state the app state
+	 * @return the selected client action
 	 */
 	public static Option<ClientAction> getSelectedAction(AppState state) {
 		return state
