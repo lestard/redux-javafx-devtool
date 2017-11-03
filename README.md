@@ -26,7 +26,7 @@ There are 2 dependencies that you typically need:
 - A connector for a specific redux implementation like ReduxFX or redux-java. 
 
 **Maven**:
-```
+```xml
 <dependency>
     <groupId>eu.lestard.redux-javafx-devtool</groupId>
     <artifactId>devtool</artifactId>
@@ -49,7 +49,7 @@ There are 2 dependencies that you typically need:
 ```
 
 **Gradle**:
-```
+```groovy
 compile 'eu.lestard.redux-javafx-devtool:devtool:0.1.0'
 
 // for ReduxFX
@@ -79,7 +79,7 @@ will change in the future.
 
 Without the devtool a typically ReduxFX setup looks like this (based on version 0.4.0):
 
-```
+```java
 ...
 import io.reactivex.Flowable;
 
@@ -112,7 +112,7 @@ public class MyApp extends Application {
 
 To add the devtool change the code like this:
 
-```
+```java
 import io.reactivex.Flowable;
 
 import com.netopyr.reduxfx.store.ReduxFXStore;
@@ -182,7 +182,7 @@ You can find the rest of the application in [example-apps/todolist-common](https
 Without the devtool a redux-java setup can look like this. 
 The UI in this example uses the Virtual-SceneGraph approach from ReduxFX:
 
-```
+```java
 ...
 import com.netopyr.reduxfx.vscenegraph.ReduxFXView;
 
@@ -226,7 +226,7 @@ public class MyApp extends Application {
 
 To add the devtool change the code like this:
 
-```
+```java
 ...
 import com.netopyr.reduxfx.vscenegraph.ReduxFXView;
 
